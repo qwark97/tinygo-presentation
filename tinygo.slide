@@ -1,0 +1,139 @@
+# Hello, TinyGo!
+And other fun embeded stuff
+
+Marcin Plata
+4 November 2022
+
+marcin.plata@softwaremind.com
+
+## Agenda
+- What is TinyGo project?
+- Used hardware
+- The *fun*
+    - Target: the light
+    - Realization
+    - Final result 
+
+.image images/gopher.png 300 300
+
+## What is TinyGo?
+
+##
+<!--
+    * jak widnieje na stronie głównej - tinygo to compailer, który pozwala produkować binarki do małych miejsc
+    * powstał w 
+    * ma swoje zastosowanie do systemów embeded, do webassembly ale mozna za jego pomocą tworzyć tez "zwykłe" programy
+    * golang w tinygo to ten sam golang co w zwykłym kompilatorze
+    * wspiera niemalze wszystkie funkcjonalnosci co zwykłe go z zastrzezeniem ze tutaj istotna jest tez docelowa platforma
+-->
+
+.background images/tinygo-homepage.png
+
+## For example
+<!--
+    * klasyczne "hello world", wybudowane przy uzyciu standardowego kompilatora oraz tinygo
+    * warto zwrócić uwagę na rozmiary binarek:
+        - klasyczna to prawie 2MB
+        - tinygo to niespełna 30KB
+    * Całość ma jednak swoją cenę
+-->
+
+.code hello_world.go
+
+Standard Go
+```
+$ go build -o go-hello ./hello_world.go
+```
+
+TinyGo
+```
+$ tinygo build -o tinygo-hello ./hello_world.go
+```
+<br>
+Comparition
+
+.image images/binaries-comparition.png 80 _
+
+## Should we then use it on PROD?
+<!--
+    * krótka odpowiedz - absolutnie nie
+    * wybudowanie trywialnego programu w tinygo trwa wielokrotnie dłuzej niz w standardowym go i jest ogólnie cięzszą operacją
+-->
+
+**Efficiency**
+<br>
+Go
+
+.image images/time-go-build.png 45 1000
+
+TinyGo
+
+.image images/time-tinygo-build.png 45 1000
+
+
+## Should we then use it on PROD?
+<!--
+    * tinygo zostało stworzone w konkretnym celu i nie jest nim zastąpienie standardowego go
+    * przede wszystkim tinygo ma wprowadzić Go na microcontrollery, a całość działa na tyle dobrze ze od 2020 roku jest projektem oficjalnie sponsorowanym przez Google   
+-->
+
+**Purpose**
+
+.image images/scope.png
+
+## How does it work beneath?
+<!--
+    * ogólnie, kompilator jest napisany bezposrednio w Go natomiast bazuje na LLVM'ie
+    * jako ze się na tym nie znam, a nie chcialbym Was wprowadzić w błąd to podrzucam link do dokumentacji, która zainteresowanym wytłumaczy jak to wszystko działa
+-->
+
+.link https://tinygo.org/docs/concepts/compiler-internals/
+
+.image images/internals.png 500 450
+
+## Installation
+<!--
+    * prosta, generalnie wystarczy zastosować się do instrukcji
+    * musi byc obecne Go
+    * spod linku nalezy wybrac instrukcję odpowiadającą systemowi operacyjnemu
+    * następnie trzeba wykonać kroki związane z mikrokontrolerem którego bedziemy uzywac
+    * jak to często bywa, dokumentacja nie zawsze jest na 100% poprawna więc drobne umiejętności administratorskie 
+    mogą być przydatne
+-->
+
+- Go must be available
+- Follow the instructions:
+
+.link https://tinygo.org/getting-started/install/
+
+- Choose further steps based on the used microcontroller:
+
+.link https://tinygo.org/docs/reference/microcontrollers/
+
+<br>
+<br>
+<br>
+
+_Debugging skills for used OS might be usefull_...
+
+## About microcontrollers
+<!--
+    * tinygo wspiera znaczną ilość mikrokontrolerów
+    * niektóre są wspierane w pełni, niektóre częściowo
+    * lista w widoczna na gifie dostępna pod linkiem
+-->
+
+.link https://tinygo.org/docs/reference/microcontrollers/
+
+.image images/microcontrollers.gif 500 600
+
+## Used hardware
+<!--
+    * a skoro mowa o hardware'rze to ta prezentacja wykorzystuje płytkę 
+    * płytka wygląda jak na obrazku
+    * fajny sprzęt, ma moduł wifi, zasilanie oraz flashowanie moze się odbywać poprzez USB
+-->
+
+**ESP8266 - NodeMCU**
+
+.image images/esp8266.jpeg 500 600 
