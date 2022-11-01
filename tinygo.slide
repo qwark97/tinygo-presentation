@@ -129,11 +129,98 @@ _Debugging skills for used OS might be usefull_...
 
 ## Used hardware
 <!--
-    * a skoro mowa o hardware'rze to ta prezentacja wykorzystuje płytkę 
+    * a skoro mowa o hardware'rze to ta prezentacja wykorzystuje płytkę ESP8266 - NodeMCU v3
     * płytka wygląda jak na obrazku
     * fajny sprzęt, ma moduł wifi, zasilanie oraz flashowanie moze się odbywać poprzez USB
+    * stosunkowo dużo pinów, a całość można spinać bez potrzeby lutowania
 -->
 
 **ESP8266 - NodeMCU**
 
-.image images/esp8266.jpeg 500 600 
+.image images/esp8266.png 570 1000
+
+## Used hardware
+<!--
+    * obsługa tej płytki z perspektywy TinyGo wygląda w taki sposób
+    * jest wsparcie dla podstaw czyli GPIO (general purpose input outpu), to dobrze 
+    * jest UART czyli komunikacja szeregowa, okej
+    * mimo że płytka posiada wifi to tinygo nie obsługuje... niedobrze
+    * jest to o tyle ważne że połaczenie po sieci było by najbardziej naturalne 
+      jako forma komunikacji
+    * trudno, TinyGo tego nie obsługuje ale od czego są eksperymenty
+    * i to powiedziawszy, przejdzmy od teorii do praktyki
+-->
+
+**From TinyGo perspective**
+
+.image images/esp-interfaces.png 545 540
+ 
+## The fun
+<!--
+    * biurko przy którym pracuję ma z tyłu listwę led
+    * listwa może być sterowana pilotem przez podczerwień (POKAZAĆ PILOT)
+    * cel jest taki, żeby w proces sterowania listwą wpiąć mikrokontroler i zyskać 
+    nowe możliwości w kontekście sterowania światłem
+-->
+
+.image images/led-desk.jpeg 545 840
+
+## Fulfilled prerequisites
+
+- Installed TinyGo
+- Installed additional stuff for the microcontroller
+- Installed VSCode extension (ID: tinygo.vscode-tinygo)
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+_All further activities performed on Linux_
+
+## hello_world.go
+<!--
+    * omówienie kodu linia po linii (o "machine" zaraz powiem więcej)
+-->
+
+.code esp/hello_world/main.go
+
+## hello_world.go
+<!--
+    * dzięki wtyczce o której wspominałem, VSCode kojarzy odpowiednią paczkę "machine"
+    * w moim przypadku wygląda ona mniej więcej tak
+    * definiuje wszystkie funkcjonalnosci związane z konkretnym mikrokontrolerem 
+    zaimplementowane przez zespół TinyGo
+-->
+
+.image images/machine-package.gif
+
+## hello_world.go
+<!--
+    * mamy kod źródłowy
+    * wiemy już o co chodzi z paczką "machine"
+    * czas zflashować płytkę
+    * operacja jest prosta i szybka - znacznie szybsza niż analogiczny kod w 
+    C zflashowany przy użyciu ArduinoIDE
+-->
+
+.image images/first-flashing.gif 550 1000
+
+## hello_world.go
+<!--
+    * output z tinygo dostarcza podstawowych informacji n.t płytki i tutaj widać 
+    go dokładniej
+-->
+
+.image images/first-flashing.png 550 1000
+
+## hello_world.go
+<!--
+    * sam rezultat tego kodu prezentuje się w taki sposób. Płytka miga
+-->
+
+.image images/blinking.gif 550 700
+
