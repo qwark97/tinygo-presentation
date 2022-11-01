@@ -19,26 +19,24 @@ marcin.plata@softwaremind.com
 ## What is TinyGo?
 
 ##
-<!--
-    * jak widnieje na stronie głównej - tinygo to compailer, który pozwala produkować binarki do małych miejsc
-    * powstał w 
-    * ma swoje zastosowanie do systemów embeded, do webassembly ale mozna za jego pomocą tworzyć tez "zwykłe" programy
-    * golang w tinygo to ten sam golang co w zwykłym kompilatorze
-    * wspiera niemalze wszystkie funkcjonalnosci co zwykłe go z zastrzezeniem ze tutaj istotna jest tez docelowa platforma
--->
+
+:    * jak widnieje na stronie głównej - tinygo to kompilator, który pozwala produkować binarki do małych miejsc
+:    * powstał w 2019 roku (a przynajmniej wtedy był pierwszy release)
+:    * ma swoje zastosowanie do systemów embeded, do webassembly ale mozna za jego pomocą tworzyć tez "zwykłe" programy
+:    * golang w tinygo to ten sam golang co w zwykłym kompilatorze
+:    * wspiera niemalze wszystkie funkcjonalnosci co zwykłe go z zastrzezeniem ze tutaj istotna jest tez docelowa platforma
 
 .background images/tinygo-homepage.png
 
 ## For example
-<!--
-    * klasyczne "hello world", wybudowane przy uzyciu standardowego kompilatora oraz tinygo
-    * warto zwrócić uwagę na rozmiary binarek:
-        - klasyczna to prawie 2MB
-        - tinygo to niespełna 30KB
-    * Całość ma jednak swoją cenę
--->
 
-.code hello_world.go
+:    * klasyczne "hello world", wybudowane przy uzyciu standardowego kompilatora oraz tinygo
+:    * warto zwrócić uwagę na rozmiary binarek:
+:        - klasyczna to prawie 2MB
+:        - tinygo to niespełna 30KB
+:    * Całość ma jednak swoją cenę
+
+.code src/hello_world.go
 
 Standard Go
 ```
@@ -55,10 +53,9 @@ Comparition
 .image images/binaries-comparition.png 80 _
 
 ## Should we then use it on PROD?
-<!--
-    * krótka odpowiedz - absolutnie nie
-    * wybudowanie trywialnego programu w tinygo trwa wielokrotnie dłuzej niz w standardowym go i jest ogólnie cięzszą operacją
--->
+
+:    * krótka odpowiedz - absolutnie nie
+:    * wybudowanie trywialnego programu w tinygo trwa wielokrotnie dłuzej niz w standardowym go i jest ogólnie cięzszą operacją
 
 **Efficiency**
 <br>
@@ -72,34 +69,34 @@ TinyGo
 
 
 ## Should we then use it on PROD?
-<!--
-    * tinygo zostało stworzone w konkretnym celu i nie jest nim zastąpienie standardowego go
-    * przede wszystkim tinygo ma wprowadzić Go na microcontrollery, a całość działa na tyle dobrze ze od 2020 roku jest projektem oficjalnie sponsorowanym przez Google   
--->
+
+:    * tinygo zostało stworzone w konkretnym celu i nie jest nim zastąpienie standardowego go
+:    * przede wszystkim tinygo ma wprowadzić Go na microcontrollery, a całość działa na tyle dobrze ze od 2020 roku jest projektem oficjalnie sponsorowanym przez Google   
+
 
 **Purpose**
 
 .image images/scope.png
 
 ## How does it work beneath?
-<!--
-    * ogólnie, kompilator jest napisany bezposrednio w Go natomiast bazuje na LLVM'ie
-    * jako ze się na tym nie znam, a nie chcialbym Was wprowadzić w błąd to podrzucam link do dokumentacji, która zainteresowanym wytłumaczy jak to wszystko działa
--->
+
+:    * ogólnie, kompilator jest napisany bezposrednio w Go natomiast bazuje na LLVM'ie
+:    * jako ze się na tym nie znam, a nie chcialbym Was wprowadzić w błąd to podrzucam link do dokumentacji, która zainteresowanym wytłumaczy jak to wszystko działa
+
 
 .link https://tinygo.org/docs/concepts/compiler-internals/
 
 .image images/internals.png 500 450
 
 ## Installation
-<!--
-    * prosta, generalnie wystarczy zastosować się do instrukcji
-    * musi byc obecne Go
-    * spod linku nalezy wybrac instrukcję odpowiadającą systemowi operacyjnemu
-    * następnie trzeba wykonać kroki związane z mikrokontrolerem którego bedziemy uzywac
-    * jak to często bywa, dokumentacja nie zawsze jest na 100% poprawna więc drobne umiejętności administratorskie 
-    mogą być przydatne
--->
+
+:    * prosta, generalnie wystarczy zastosować się do instrukcji
+:    * musi byc obecne Go
+:    * spod linku nalezy wybrac instrukcję odpowiadającą systemowi operacyjnemu
+:    * następnie trzeba wykonać kroki związane z mikrokontrolerem którego bedziemy uzywac
+:    * jak to często bywa, dokumentacja nie zawsze jest na 100% poprawna więc drobne umiejętności administratorskie 
+:    mogą być przydatne
+
 
 - Go must be available
 - Follow the instructions:
@@ -117,55 +114,57 @@ TinyGo
 _Debugging skills for used OS might be usefull_...
 
 ## About microcontrollers
-<!--
-    * tinygo wspiera znaczną ilość mikrokontrolerów
-    * niektóre są wspierane w pełni, niektóre częściowo
-    * lista w widoczna na gifie dostępna pod linkiem
--->
+
+:    * tinygo wspiera znaczną ilość mikrokontrolerów
+:    * niektóre są wspierane w pełni, niektóre częściowo
+:    * lista w widoczna na gifie dostępna pod linkiem
+
 
 .link https://tinygo.org/docs/reference/microcontrollers/
 
 .image images/microcontrollers.gif 500 600
 
 ## Used hardware
-<!--
-    * a skoro mowa o hardware'rze to ta prezentacja wykorzystuje płytkę ESP8266 - NodeMCU v3
-    * płytka wygląda jak na obrazku
-    * fajny sprzęt, ma moduł wifi, zasilanie oraz flashowanie moze się odbywać poprzez USB
-    * stosunkowo dużo pinów, a całość można spinać bez potrzeby lutowania
--->
+
+:    * a skoro mowa o hardware'rze to ta prezentacja wykorzystuje płytkę ESP8266 - NodeMCU v3
+:    * płytka wygląda jak na obrazku
+:    * fajny sprzęt, tani (ok. 30zł), ma moduł wifi, zasilanie oraz flashowanie moze się odbywać poprzez USB
+:    * stosunkowo dużo pinów, a całość można spinać bez potrzeby lutowania
+
 
 **ESP8266 - NodeMCU**
 
 .image images/esp8266.png 570 1000
 
 ## Used hardware
-<!--
-    * obsługa tej płytki z perspektywy TinyGo wygląda w taki sposób
-    * jest wsparcie dla podstaw czyli GPIO (general purpose input outpu), to dobrze 
-    * jest UART czyli komunikacja szeregowa, okej
-    * mimo że płytka posiada wifi to tinygo nie obsługuje... niedobrze
-    * jest to o tyle ważne że połaczenie po sieci było by najbardziej naturalne 
-      jako forma komunikacji
-    * trudno, TinyGo tego nie obsługuje ale od czego są eksperymenty
-    * i to powiedziawszy, przejdzmy od teorii do praktyki
--->
+
+:    * obsługa tej płytki z perspektywy TinyGo wygląda w taki sposób
+:    * jest wsparcie dla podstaw czyli GPIO (general purpose input outpu), to dobrze 
+:    * jest UART czyli komunikacja szeregowa, okej
+:    * mimo że płytka posiada wifi to tinygo nie obsługuje... niedobrze
+:    * jest to o tyle ważne że połaczenie po sieci było by najbardziej naturalne 
+:      jako forma komunikacji
+:    * trudno, TinyGo tego nie obsługuje ale od czego są eksperymenty
+:    * i to powiedziawszy, przejdzmy od teorii do praktyki
+
 
 **From TinyGo perspective**
 
 .image images/esp-interfaces.png 545 540
  
 ## The fun
-<!--
-    * biurko przy którym pracuję ma z tyłu listwę led
-    * listwa może być sterowana pilotem przez podczerwień (POKAZAĆ PILOT)
-    * cel jest taki, żeby w proces sterowania listwą wpiąć mikrokontroler i zyskać 
-    nowe możliwości w kontekście sterowania światłem
--->
+
+:    * biurko przy którym pracuję ma z tyłu listwę led
+:    * listwa może być sterowana pilotem przez podczerwień (POKAZAĆ PILOT)
+:    * cel jest taki, żeby w proces sterowania listwą wpiąć mikrokontroler i zyskać 
+:    nowe możliwości w kontekście sterowania światłem
+
 
 .image images/led-desk.jpeg 545 840
 
 ## Fulfilled prerequisites
+
+:   * rozpoczęcie prac zaczynamy od takiego stanu początkowego
 
 - Installed TinyGo
 - Installed additional stuff for the microcontroller
@@ -182,45 +181,94 @@ _Debugging skills for used OS might be usefull_...
 _All further activities performed on Linux_
 
 ## hello_world.go
-<!--
-    * omówienie kodu linia po linii (o "machine" zaraz powiem więcej)
--->
 
-.code esp/hello_world/main.go
+:    * omówienie kodu linia po linii (o "machine" zaraz powiem więcej)
+
+
+.code src/hello_world/main.go
 
 ## hello_world.go
-<!--
-    * dzięki wtyczce o której wspominałem, VSCode kojarzy odpowiednią paczkę "machine"
-    * w moim przypadku wygląda ona mniej więcej tak
-    * definiuje wszystkie funkcjonalnosci związane z konkretnym mikrokontrolerem 
-    zaimplementowane przez zespół TinyGo
--->
+
+:    * dzięki wtyczce o której wspominałem, VSCode kojarzy odpowiednią paczkę "machine"
+:    * w moim przypadku wygląda ona mniej więcej tak
+:    * definiuje wszystkie funkcjonalnosci związane z konkretnym mikrokontrolerem 
+:    zaimplementowane przez zespół TinyGo
+
 
 .image images/machine-package.gif
 
 ## hello_world.go
-<!--
-    * mamy kod źródłowy
-    * wiemy już o co chodzi z paczką "machine"
-    * czas zflashować płytkę
-    * operacja jest prosta i szybka - znacznie szybsza niż analogiczny kod w 
-    C zflashowany przy użyciu ArduinoIDE
--->
+
+:    * mamy kod źródłowy
+:    * wiemy już o co chodzi z paczką "machine"
+:    * czas zflashować płytkę
+:    * operacja jest prosta i szybka - znacznie szybsza niż analogiczny kod w 
+:    C zflashowany przy użyciu ArduinoIDE
+
 
 .image images/first-flashing.gif 550 1000
 
 ## hello_world.go
-<!--
-    * output z tinygo dostarcza podstawowych informacji n.t płytki i tutaj widać 
-    go dokładniej
--->
+
+:    * output z tinygo dostarcza podstawowych informacji n.t płytki i tutaj widać 
+:    go dokładniej
+
 
 .image images/first-flashing.png 550 1000
 
 ## hello_world.go
-<!--
-    * sam rezultat tego kodu prezentuje się w taki sposób. Płytka miga
--->
+
+:    * sam rezultat tego kodu prezentuje się w taki sposób. Płytka miga
+:    * okej, nasze hello world działa
+:    * co dalej?
+
 
 .image images/blinking.gif 550 700
 
+## Outside signal
+
+:    * dokumentacja mówi, że wifi na płytce nie jest wspierane przez TinyGo
+:    * nie mniej jednak nie zaszkodzi nam poeksperymentować, wykorzystując możliwości
+:    czy to golanga samego w sobie czy też tinygo jako takiego
+
+
+.image images/esp-interfaces.png 545 540
+
+## Cgo
+
+:    * przykładem funkcjonalności w go, która może pomóc, a częściowo działa w tinygo 
+:    jest Cgo
+:    * Cgo to funkcjonalność, która pozwala paczkom golangowym dokonywać wywołań funkcji 
+:    napisanych C
+
+
+.link https://go.dev/blog/cgo
+
+.image images/cgo.png 515 _
+
+## Cgo
+
+:    * samo wykorzystanie Cgo wygląda taki sposób
+:    * komentarz, który jest nad 'import "C"' jest interpretowany jako kod C
+:    * do samych funkcji z C można się odwoływać poprzez tą importowaną pseudo paczkę
+:    * z ciekawostek to pozbycie się importu paczki "fmt" odchudziło binarkę która robi 
+:    tylko hello world z 1.8MB do 1.2MB
+
+
+.code src/c_hello_world/main.go
+
+.image images/c_hello.png
+
+## Cgo
+
+:    * w naszym wypadku, kod, który mógłby być użyteczny wygląda tak
+:    * jest to wycinek z kodu, który już wykorzystywałem na tych płytkach 
+:    * stąd wiem, że za jego pomocą powinno być możliwe podpięcie się do wifi
+:    * niestety, kod w C mnie w tym przypadku pokonał
+:    * mimo researchu i wielu eksperymentów, nie udało mi się tego skompilować poza Arduino IDE
+:    * w związku z tym, choć teoretycznie takie rozwiązanie było by możliwe, musiałem odpuścić
+:    * jeśli ktoś kto dobrze się czuje w C wie jak można tutaj coś podziałać to proszę o kontakt
+:    * okej, C nie wypaliło to może jednak jest jakaś możliwość zrobić to bezpośrednio w TinyGo
+
+
+.image images/wifi.gif 
