@@ -327,3 +327,15 @@ _All further activities performed on Linux_
 
 ## We have a problem...
 
+:   * trudno myśleć o jakimś ciekawym zastosowaniu płytki jeśli nie można się z nią skontaktować
+:   * bez komunikacji jedyne co można zrobić to zaprojektować jedno zachowanie i tyle
+:   * więc, skoro rozsądne (reasonable) sposoby interakcji nie zadziałały, spróbujmy czegoś dziwnego
+
+.image images/meme.jpg
+
+## Let's heat it
+
+:   * podczas przeglądania sterowników dla tinygo zauważyłem coś takiego
+:   * ZMIANA W thermometer.go
+
+.image images/dht.png
