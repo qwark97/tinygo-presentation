@@ -18,15 +18,13 @@ marcin.plata@softwaremind.com
 
 ## What is TinyGo?
 
-##
-
 :    * jak widnieje na stronie głównej - tinygo to kompilator, który pozwala produkować binarki do małych miejsc
 :    * powstał w 2019 roku (a przynajmniej wtedy był pierwszy release)
 :    * ma swoje zastosowanie do systemów embeded, do webassembly ale mozna za jego pomocą tworzyć tez "zwykłe" programy
 :    * golang w tinygo to ten sam golang co w zwykłym kompilatorze
 :    * wspiera niemalze wszystkie funkcjonalnosci co zwykłe go z zastrzezeniem ze tutaj istotna jest tez docelowa platforma
 
-.background images/tinygo-homepage.png
+.image images/tinygo-homepage.png 575 _
 
 ## For example
 
@@ -272,3 +270,60 @@ _All further activities performed on Linux_
 
 
 .image images/wifi.gif 
+
+## ESP-AT Driver
+
+:   * zrobiłem kolejny research, i link po linku doszedłem do jakiejś propozycji
+:   * polega ona na tym aby wykorzystać sterownik dedykowany do obsługi wifi dla ESP8266
+
+.image images/wifi-github-issue.png
+
+## ESP-AT Driver
+
+:   * to rozwiązanie wykorzystuje komunikację szeregową i teoretycznie powinno pozwolić na połączenie się 
+:   do wifi
+:   * haczyk jest taki, że wymaga odpowiedniego firmware'u
+:   * no to okej, skoro wymaga to trzeba go zainstalować
+
+.image images/espat.png
+
+## ESP-AT Driver
+
+:   * po dłuuugim researchu, udało mi się znaleźć odpowiednie pliki i odpowiednie instrukcje
+:   * sam proces flashowania wygląda na to że się powiódł, nie dostałem przynajmniej żadnych błędów
+:   * uruchomiłem też na tym firmwarze przykład hello_world, wszystko śmiga
+
+.image images/firmware-flashing.gif 550 1000
+
+## ESP-AT Driver
+
+:   * skoro miałem firmware, to bazując na przykładach które znalazłem stworzyłem odpowiedni kod
+:   który powinien sprawić że płytka połączy się do wifi
+:   * wygląda to mniej więcej tak (i omówić co się dzieje)
+
+.code src/go_wifi/main.go
+
+## ESP-AT Driver
+
+:   * no a tutaj są pozostałe funkcje (i omówić co się dzieje)
+:   * dane do sieci oczywiście w eksperymentach poprawiłem
+
+.code src/go_wifi/main.go /START OMIT/,/END OMIT/
+
+## ESP-AT Driver
+
+:   * no a tak wygląda zflashowanie tego kodu
+:   * standardowa komenda ale dodajemy dodatkowe dwie flagi
+:   * -serial uart , mówi który serial output ma być użyty
+:   * -monitor enables serial monitor
+:   * jak widać niestety całość nie działa
+:   * program pada na etapie potwierdzenia że istnieje komunikacja z płytką
+:   * dlaczego tak się dzieje? niestety nie wiem. 
+:   * To może być kwestia samej płytki, kwestia sterownika, kwestia firmware'u, ja mogłem zrobić błąd na którymś z tych etapów
+:   * Trudno powiedzieć
+:   * Faktem jest, że komunikacja w ten sposób nie zadziała
+
+.image images/go_wifi.gif _ 1000
+
+## We have a problem...
+
