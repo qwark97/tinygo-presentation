@@ -335,7 +335,107 @@ _All further activities performed on Linux_
 
 ## Let's heat it
 
-:   * podczas przeglądania sterowników dla tinygo zauważyłem coś takiego
-:   * ZMIANA W thermometer.go
+:   * podczas przeglądania sterowników dla tinygo zauważyłem coś takiego: sterownik dht
+
 
 .image images/dht.png
+
+## Let's heat it
+
+:   * jest mi on znany, ponieważ już go używałem na tej płytce. Co prawda w C ale wciąż
+:   * więc wpadłem na pomysł - nie udało mi się osiągnąć zdalnej komunikacji 
+:   * ale może będę w stanie wpłynąć na zachowanie płytki za pomocą temperatury
+
+.image images/c_dht(1).png 250 520
+.image images/c_dht(2).png 270 520
+
+
+## Let's heat it
+
+:   * skoro tak, to zróbmy to
+:   * trochę pokodowałem i rezultat prezentuje się następująco
+:   * tak wygląda kod który pobiera temeraturę (omówić linia po lini i wskazać ze olewam błędy tu)
+
+.code src/temp/main.go /START_PART1 OMIT/,/END_PART1 OMIT/
+
+## Let's heat it
+
+:   * a tak wygląda funkcja do czytelnego printowania temperatury
+:   * nie bezzasadnie możecie spytać - Marcin, czemu w taki sposób tworzysz wiadomość, dlaczego nie użyłeś e.g. fmt.Sprintf
+:   * pamiętacie jak mówiłem w kontekście cgo, że pozbycie się paczki fmt zmniejszyło binarkę z 1.8MB do 1.2MB
+:   * cóż, ta paczka jest na tyle duża, że dla mojej płytki jest za duża. Stąd konieczność robienia rzeczy inaczej
+:   * takie życie, embeded rządzi się swoimi prawami
+
+.code src/temp/main.go /START_PART2 OMIT/,/END_PART2 OMIT/
+
+## Let's heat it
+
+:   * co ważne, kod który zrobiłem domyślnie nie zadziała z paczką "machine" dedykowaną dla mojej płytki
+:   * jest tak dlatego, że jedna z funkcji sterownika "dht", oczekuje od paczki "machine" wartości, których ta nie dostarcza
+:   * dodatkowo, nie mogę po prostu podmienić UART1 na UART0 które występuje dla ESP8266, bo "moja" wartość nie ma takich metod
+:   * więc co w takiej sytuacji mogę zrobić?
+
+.image images/thermometer-err.png
+
+## Let's heat it
+
+:   * mogę załozyć, że mogę żyć bez wyłączenia przerwań i po prostu wywalić te wywołania
+:   * czy to najlepsze rozwiązanie? nie wiem
+:   * czy działa? działa
+
+.image images/thermometer-comment.png
+
+## Let's heat it
+
+:   * z perspektywy hardware'u wygląda to natomiast tak
+:   * na tym zdjęciu widzimy sam termometr
+:   * proste urządzenie z nienajlepszą dokładnością ale jest wystarczające
+
+.image images/thermometer.jpg 550 _
+
+## Let's heat it
+
+:   * jest połączone z płytką w taki sposób
+:   * żółty kabel (wire) to zasilanie (power supply) 3V
+:   * niebieski to uziemienie
+:   * zielony to podpięcie do PINu który pozwala na odczyt temperatury
+
+.image images/connection.jpg 580 _
+
+## Let's heat it
+
+:   * czy to działa? 
+:   * jak możemy zobaczyć na gifie, tak, działa
+:   * początkowa temperatura zaczyna się powoli podnosić w momencie, w którym wkładam termomentr do ręki i go rozgrzewam
+:   * a to oznacza, że jest to sposób na sterowanie zachowaniem płytki
+
+.image images/solo_temp_measurement.gif _ 1000
+
+## Action - reaction
+
+:   * skoro wiemy, że sterowanie działa, jak może wyglądać software, który to wykorzysta
+:   * zrobiłem coś takiego
+:   * część pierwsza opisać co się dzieje
+
+.code src/temp_trigger/main.go /START_PART1 OMIT/,/END_PART1 OMIT/
+
+## Action - reaction
+
+:   * część druga opisać co się dzieje
+:   * funkcja prettyTempPrintln jest taka jak wczesniej
+
+.code src/temp_trigger/main.go /START_PART2 OMIT/,/END_PART2 OMIT/
+
+## Action - reaction
+
+:   * wykonanie tego kodu prezentuje się w taki sposób
+:   * gdy zaczynam ogrzewać termometr i temperatura przez niego wykrywana przekracza 30 stopni
+:   * wtedy zapala się lampka
+:   * gdy temperatura spadnie ponizej 30 stopni, lampka gaśnie
+:   * super, skoro mamy sposób sterowania i odpowiednią logikę która to obsłuży możemy iść dalej
+:   * kolejnym i ostatnim krokiem w tej historii będzie doprowadzenie do stanu, gdzie płytka 
+:   na bazie temperatury będzie sterowała listwą ledową na moim biurku
+
+<JAKOŚ TO POKAZAĆ>
+
+## Illuminate
