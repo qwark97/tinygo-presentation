@@ -436,10 +436,106 @@ _All further activities performed on Linux_
 :   * kolejnym i ostatnim krokiem w tej historii będzie doprowadzenie do stanu, gdzie płytka 
 :   na bazie temperatury będzie sterowała listwą ledową na moim biurku
 
-<JAKOŚ TO POKAZAĆ>
+.image images/temp_trigger.gif
 
 ## Illuminate
 
-:   * tym razem zaczniemy od elektroniki
-:   * nie będę wchodził za mocno w szczegóły natomiast całość wygląda w taki sposób jak na zdjęciu
+.link https://www.makeuseof.com/tag/connect-led-light-strips-arduino/
 
+:   * tym razem zaczniemy od elektroniki
+:   * nie będę wchodził za mocno w szczegóły natomiast całość jest bazowana na takim diagramie
+
+.image images/diagram.png
+
+## Illuminate
+
+:   * na żywym sprzęcie wygląda to tak
+:   * tutaj jest "motherboard for prototipes"
+:   * widzimy rezystory, tranzystory i termomentr
+
+.image images/motherboards.jpg 550 1000
+
+## Illuminate
+
+:   * a to jest źródło zasilania dla listwy ledowej
+:   * płytka może wygenerować max 5V
+:   * to urządzenie pozwala jako input wpiąć zasilacz 12V
+:   * na wyjściu teoretycznie powinno być max 5V ale kiedyś coś spaliłem i jest 10V 
+:   * i na szczęście (luckily) - my potrzebujemy 12V ale 10V jest wystarczająco
+
+.image images/power-supply.jpg 880 _
+
+## Illuminate
+
+:   * połączenia do samej płytki wyglądają natomiast następująco
+:   * red, green, blue oraz black są powiązane ze sterowaniem taśmą led
+:   * fioletowy, pomarańczowy i brązowy to połączenie termometru
+
+.image images/wires-connections.jpg 580 _
+
+## Illuminate
+
+:   * teraz kod
+:   * generalnie jest to to co widzieliśmy wcześniej, z tym że 
+:   zamiast tylko zapalić lampkę po przekroczeniu "tresholda" to jeszcze uruchamia taśmę
+:   * tutaj definiujemy nowe piny, które odpowiadają tym, które były połączone na poprzednich zdjęciach
+
+
+.code src/led_strip/main.go /START_DECLARATION OMIT/,/STOP_DECLARATION OMIT/
+
+## Illuminate
+
+:   * następnie funkcja main
+:   * jak wcześniej z tym, że nowe piny potrzebują konfiguracji
+:   * gdy zadziała trigger wołana jest odpowiednia funkcja
+
+.code src/led_strip/main.go /START_MAIN OMIT/,/STOP_MAIN OMIT/
+
+## Illuminate
+
+:   * a same funkcje wyglądają tak
+:   * to jest najprostszy sposób działania
+:   * ten sposób po prostu odpala wszystkie kolory na maksymalną jasność
+:   * teoretycznie powinno dać się też tym sterować ale uznałem, że to już jest poza zakresem
+:   * może ktoś z Was będzie chciał to zmodyfikować i improve
+
+.code src/led_strip/main.go /START_TRIGGER OMIT/,/STOP_TRIGGER OMIT/
+
+## Illuminate?
+:   * i teraz, najważniejsze pytanie - czy to działa?
+:   * have we reached our goal?
+
+.image images/terrifying.gif 500 600
+
+## Illuminate!
+:   * yep, it works!
+:   * by warming up the thermometer, we are able to trigger the led strip to turn on
+:   * and also - which isn't on the clip - turn off
+:   * a to wszystko z wykorzystaniem tinygo i płytki esp8266
+
+.image images/illuminate.gif 500 _
+
+## Summary
+
+ * Use proper tools to your tasks
+ * __TinyGo rocks!__
+ * Wires are important
+
+:   * najważniejsze jest wybranie płytki zgodnej z oczekiwaniami
+:   * jak głównym celem jest jakiś projekt, wtedy płytka powinna być taka żeby go obsłużyc
+:   * jak celem jest zabawa z konkretnym językiem, wtedy płytka powinna być do niego dopasowana
+:   * przykładowo, do zabawy z tinygo płytki ESP są beznadziejne
+
+:   * samo tinygo jest fantastyczne. Łatwe w obsłudze, szybkie i przede wszystkim pozwala tworzyć logikę w go
+:   * to ogromne uproszczenie gdy ktoś chce się bawić z mikrokontrolerami a nie zna / nie chce się uczyć C
+:   * jasne, sam projekt jest młody i ma pewne problemy wieku dziecięcego
+:   * ale prężnie się rozwija (is dynamically developing) i nie tylko dobrze się go używa ale stwarza okazję do kontrybucji w nim samym
+
+:   * last but not least
+:   * do zabawy z elektroniką trzeba cóż poznać elektronikę - nie tylko zasady działania prądu
+:   * również istotne jest poznanie sposobów działania mikrokontrolerów, używanych protokołów, wykorzystywanych praktyk itp.
+:   * jako że całe to otoczenie mocno działa na open sourcie, to umiejętności takie jak
+:     budowanie, kompilowanie czy debuggowanie mogą być bardzo przydatne
+
+:   * and that's it. I hope you enjoyed this presentation. And if you have any questions you can ask it now
+:     or later on teams and I will try to answer it
