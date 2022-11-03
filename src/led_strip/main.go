@@ -7,6 +7,7 @@ import (
 	"tinygo.org/x/drivers/dht"
 )
 
+// START_DECLARATION OMIT
 var (
 	tempPin = machine.GPIO9 //S3 of NodeMCU is GPIO9
 	ledPin  = machine.GPIO2
@@ -17,16 +18,17 @@ var (
 	bPin = machine.GPIO13 //D7 of NodeMCU is GPIO13
 )
 
+// STOP_DECLARATION OMIT
+
+// START_MAIN OMIT
 func main() {
 	ledPin.Configure(machine.PinConfig{
 		Mode: machine.PinOutput,
 	})
 	ledPin.High()
-
 	rPin.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	gPin.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	bPin.Configure(machine.PinConfig{Mode: machine.PinOutput})
-
 	ch := make(chan bool)
 	go measure(ch)
 	for {
@@ -43,6 +45,9 @@ func main() {
 	}
 }
 
+// STOP_MAIN OMIT
+
+// START_TRIGGER OMIT
 func ledStripOn() {
 	rPin.High()
 	gPin.High()
@@ -53,6 +58,8 @@ func ledStripOff() {
 	gPin.Low()
 	bPin.Low()
 }
+
+// STOP_TRIGGER OMIT
 
 func measure(trigger chan bool) {
 	device := dht.New(tempPin, dht.DHT11)
