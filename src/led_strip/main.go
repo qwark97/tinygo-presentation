@@ -7,11 +7,10 @@ import (
 	"tinygo.org/x/drivers/dht"
 )
 
-// START_PART1 OMIT
 var (
 	tempPin = machine.GPIO9 //S3 of NodeMCU is GPIO9
+	ledPin  = machine.GPIO2
 	light   = false
-	led     = machine.GPIO2
 
 	rPin = machine.GPIO14 //D5 of NodeMCU is GPIO14
 	gPin = machine.GPIO12 //D6 of NodeMCU is GPIO12
@@ -19,13 +18,10 @@ var (
 )
 
 func main() {
-	led.Configure(machine.PinConfig{
+	ledPin.Configure(machine.PinConfig{
 		Mode: machine.PinOutput,
 	})
-	led.Low()
-	time.Sleep(time.Second)
-	led.High()
-	time.Sleep(time.Second)
+	ledPin.High()
 
 	rPin.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	gPin.Configure(machine.PinConfig{Mode: machine.PinOutput})
@@ -34,28 +30,25 @@ func main() {
 	ch := make(chan bool)
 	go measure(ch)
 	for {
-		println("loop")
 		trigger := <-ch
 		if trigger {
-			turnOnLedStrip()
-			led.Low()
+			ledStripOn()
+			ledPin.Low()
 			light = true
 		} else {
-			turnOffLedStrip()
-			led.High()
+			ledStripOff()
+			ledPin.High()
 			light = false
 		}
 	}
 }
 
-func turnOnLedStrip() {
-	println("turn on")
+func ledStripOn() {
 	rPin.High()
 	gPin.High()
 	bPin.High()
 }
-func turnOffLedStrip() {
-	println("turn off")
+func ledStripOff() {
 	rPin.Low()
 	gPin.Low()
 	bPin.Low()
@@ -69,9 +62,9 @@ func measure(trigger chan bool) {
 		temp, _ := device.Temperature()
 		prettyTempPrintln(int(temp))
 
-		if !light && temp/10 >= 26 {
+		if !light && temp/10 > 27 {
 			trigger <- true
-		} else if light && temp/10 < 26 {
+		} else if light && temp/10 <= 27 {
 			trigger <- false
 		}
 		time.Sleep(2 * time.Second)
