@@ -14,25 +14,33 @@ marcin.plata@softwaremind.com
     - Realization
     - Final result 
 
+:   * first of all we'll talk about the tinygo project itself
+:   * I will tell you what it is and how to use it
+:   * then I will show you the hardware stuff that we will be using in this presentation
+:   * and the last part is going to be about the goal that we will want to achievie during this talk
+
 .image images/gopher.png 300 300
 
 ## What is TinyGo?
 
-:    * jak widnieje na stronie głównej - tinygo to kompilator, który pozwala produkować binarki do małych miejsc
-:    * powstał w 2019 roku (a przynajmniej wtedy był pierwszy release)
-:    * ma swoje zastosowanie do systemów embeded, do webassembly ale mozna za jego pomocą tworzyć tez "zwykłe" programy
-:    * golang w tinygo to ten sam golang co w zwykłym kompilatorze
-:    * wspiera niemalze wszystkie funkcjonalnosci co zwykłe go z zastrzezeniem ze tutaj istotna jest tez docelowa platforma
+:   * as we can see on the home page of the project - tinygo is a go compiler for small places
+:   * in other words - tinygo allows to create small binaries from the projects written in go
+:   * it has been created in twenty-nineteen (at least then was the first release of the project)
+:   * tinygo can be used most of all in the embeded systems, but also the webassembly and even the "regural" go projects
+:   * tinygo uses the same go language as in the regular compiler
+:   * also, tinygo supports almost all golang functionalities 
+:   * although the important matter whether something will be working or not is the target environment to which the binary has been created
 
 .image images/tinygo-homepage.png 575 _
 
 ## For example
 
-:    * klasyczne "hello world", wybudowane przy uzyciu standardowego kompilatora oraz tinygo
-:    * warto zwrócić uwagę na rozmiary binarek:
-:        - klasyczna to prawie 2MB
-:        - tinygo to niespełna 30KB
-:    * Całość ma jednak swoją cenę
+:   * the clasic "hello world" for the go language, build with regular go compiler and tinygo
+:   * which is worth noting is the size of the binary files
+:       - the clasic complier created a binary file with almost 2 megabytes
+:       - where the tinygo compiler created the same "application" with size just around 30 kilobytes
+:   * this is huge difference
+:   * so, should we then use tinygo for our regular projects?
 
 .code src/hello_world.go
 
@@ -52,8 +60,10 @@ Comparition
 
 ## Should we then use it on PROD?
 
-:    * krótka odpowiedz - absolutnie nie
-:    * wybudowanie trywialnego programu w tinygo trwa wielokrotnie dłuzej niz w standardowym go i jest ogólnie cięzszą operacją
+:   * the short answer is - absolutely not
+:   * firstly, building even such trivial go program with tinygo takes much more time than in regular go compliler 
+:   * and in general it is more expensive operation
+:   * and we need to remember, the speed of compliling is one of the golang's benefits
 
 **Efficiency**
 <br>
@@ -68,8 +78,10 @@ TinyGo
 
 ## Should we then use it on PROD?
 
-:    * tinygo zostało stworzone w konkretnym celu i nie jest nim zastąpienie standardowego go
-:    * przede wszystkim tinygo ma wprowadzić Go na microcontrollery, a całość działa na tyle dobrze ze od 2020 roku jest projektem oficjalnie sponsorowanym przez Google   
+:   * which is even more important
+:   * tinygo has been created in particular reasons which is NOT replacing the regular go compiler
+:   * the goal for project itself is to introduce the go language into microcontrollers
+:   * and, all of that works good enough that since twenty-twenty the project if officialy supported by Google
 
 
 **Purpose**
@@ -78,8 +90,9 @@ TinyGo
 
 ## How does it work beneath?
 
-:    * ogólnie, kompilator jest napisany bezposrednio w Go natomiast bazuje na LLVM'ie
-:    * jako ze się na tym nie znam, a nie chcialbym Was wprowadzić w błąd to podrzucam link do dokumentacji, która zainteresowanym wytłumaczy jak to wszystko działa
+:   * well, the compler itself is written directly in go and it is based on the LLVM project
+:   * as I'm not well familiar with this compiler-related subject and I don't want to missguide you in anything I will not tell more about it
+:   * but, if anyone is interested, here is a link to the documentation which should answer your questions in this matter
 
 
 .link https://tinygo.org/docs/concepts/compiler-internals/
@@ -88,13 +101,13 @@ TinyGo
 
 ## Installation
 
-:    * prosta, generalnie wystarczy zastosować się do instrukcji
-:    * musi byc obecne Go
-:    * spod linku nalezy wybrac instrukcję odpowiadającą systemowi operacyjnemu
-:    * następnie trzeba wykonać kroki związane z mikrokontrolerem którego bedziemy uzywac
-:    * jak to często bywa, dokumentacja nie zawsze jest na 100% poprawna więc drobne umiejętności administratorskie 
-:    mogą być przydatne
-
+:   * what about installation
+:   * it rather simple and the instructions given in the tinygo webpage should be enough to easily install it
+:   * of course the project needs the golang to present
+:   * this link allows to choose the instructions for the particular OS
+:   * then, depending on the microcontroller that will be in use, the one needs to do some additional steps
+:   * and, as it is common, especially in community driven projects, documentation might have some minor issues
+:   * so some debugging skills for the particular operating systems might be useful
 
 - Go must be available
 - Follow the instructions:
@@ -113,9 +126,9 @@ _Debugging skills for used OS might be usefull_...
 
 ## About microcontrollers
 
-:    * tinygo wspiera znaczną ilość mikrokontrolerów
-:    * niektóre są wspierane w pełni, niektóre częściowo
-:    * lista w widoczna na gifie dostępna pod linkiem
+:   * tinygo supports the significant number of different microcontrollers
+:   * some of them are fully supported, some only partially
+:   * the list you can see on the screen is available under this link
 
 
 .link https://tinygo.org/docs/reference/microcontrollers/
@@ -124,10 +137,11 @@ _Debugging skills for used OS might be usefull_...
 
 ## Used hardware
 
-:    * a skoro mowa o hardware'rze to ta prezentacja wykorzystuje płytkę ESP8266 - NodeMCU v3
-:    * płytka wygląda jak na obrazku
-:    * fajny sprzęt, tani (ok. 30zł), ma moduł wifi, zasilanie oraz flashowanie moze się odbywać poprzez USB
-:    * stosunkowo dużo pinów, a całość można spinać bez potrzeby lutowania
+:   * and, as we are talking about the hardware
+:   * this presentation uses the ESP8266 - NodeMCU v3 board
+:   * the board looks as in the pictures
+:   * rather cool board, pretty cheap (around 6Euro), it as wifi module and the power and flashing might be done through the USB
+:   * it has quite a lot of PINs and it is easy to connect the wires to it without soldering
 
 
 **ESP8266 - NodeMCU**
@@ -136,14 +150,14 @@ _Debugging skills for used OS might be usefull_...
 
 ## Used hardware
 
-:    * obsługa tej płytki z perspektywy TinyGo wygląda w taki sposób
-:    * jest wsparcie dla podstaw czyli GPIO (general purpose input outpu), to dobrze 
-:    * jest UART czyli komunikacja szeregowa, okej
-:    * mimo że płytka posiada wifi to tinygo nie obsługuje... niedobrze
-:    * jest to o tyle ważne że połaczenie po sieci było by najbardziej naturalne 
-:      jako forma komunikacji
-:    * trudno, TinyGo tego nie obsługuje ale od czego są eksperymenty
-:    * i to powiedziawszy, przejdzmy od teorii do praktyki
+:   * from tinygo perspective it supports this board in those interfaces
+:   * it supports the basics which is GPIO (general purpose input outpu)
+:   * it should support UART which is serial communication
+:   * but unfortunatelly even despite that the board supports the wifi, the tinygo does not support it on this microcontroller
+:   * thats not good - some form of communication definatelly would be useful 
+:   * and the sending data through network seems as something the most natural
+:   * well, even despite such description, nothing stops us to do some experiments with it
+:   * that being said, let's start some practice instead only theory
 
 
 **From TinyGo perspective**
@@ -152,17 +166,23 @@ _Debugging skills for used OS might be usefull_...
  
 ## The fun
 
-:    * biurko przy którym pracuję ma z tyłu listwę led
-:    * listwa może być sterowana pilotem przez podczerwień (POKAZAĆ PILOT)
-:    * cel jest taki, żeby w proces sterowania listwą wpiąć mikrokontroler i zyskać 
-:    nowe możliwości w kontekście sterowania światłem
+:   * what is the our goal today?
+:   * the desk I'm working on, has on the back this led strip
+:   * the led strp can be managed through this remote 
+:   * and the goal is to include the ESP board I've shown to this managing process
+:   * thanks to that it'd be possible to programm some custom logic 
+:   * and be able to do some fun stuff with it
 
 
 .image images/led-desk.jpeg 545 840
 
 ## Fulfilled prerequisites
 
-:   * rozpoczęcie prac zaczynamy od takiego stanu początkowego
+:   * at the beginning let's sum up with what we start
+:   * we have installed tinygo
+:   * I've done some preparations for the board I'll be using
+:   * and I've installed the vs code extension which supports creating code for tinygo
+:   * also, All further activities will be performed on the Linux
 
 - Installed TinyGo
 - Installed additional stuff for the microcontroller
@@ -180,64 +200,67 @@ _All further activities performed on Linux_
 
 ## hello_world.go
 
-:    * omówienie kodu linia po linii (o "machine" zaraz powiem więcej)
+:   * <omówienie kodu linia po linii> 
+:   * about the "machine" package I will tell more right away
+:   * on my board, this defined PIN which manages the LED on the board works in a way that
+:   * low function turns it on, and high function turns it off
 
 
 .code src/hello_world/main.go
 
 ## hello_world.go
 
-:    * dzięki wtyczce o której wspominałem, VSCode kojarzy odpowiednią paczkę "machine"
-:    * w moim przypadku wygląda ona mniej więcej tak
-:    * definiuje wszystkie funkcjonalnosci związane z konkretnym mikrokontrolerem 
-:    zaimplementowane przez zespół TinyGo
+:   * the "machine" package is something specific fo the tinygo
+:   * it defines all functionalities related with a particular board implemented by the TinyGo team
+:   * in my case it looks more or less like this
+:   * and thanks to the extension I mentioned before, 
+:   * the vs code knows which "machine" package will be used in the compiling time
 
 
 .image images/machine-package.gif
 
 ## hello_world.go
 
-:    * mamy kod źródłowy
-:    * wiemy już o co chodzi z paczką "machine"
-:    * czas zflashować płytkę
-:    * operacja jest prosta i szybka - znacznie szybsza niż analogiczny kod w 
-:    C zflashowany przy użyciu ArduinoIDE
+:   * we have source code
+:   * we know more or less what the machine package is for
+:   * time to flash the board
+:   * first, we check whether the system sees the connected board (it is this ttyUSB0)
+:   * and we flash it with this command
+:   * operation is fast and simple - way simpler than "deplying" the similar code written in C using ArduinoIDE
 
 
 .image images/first-flashing.gif 550 1000
 
 ## hello_world.go
 
-:    * output z tinygo dostarcza podstawowych informacji n.t płytki i tutaj widać 
-:    go dokładniej
+:   * the output from the command itselft gives basic info about the board and we can see it clearly here
 
 
 .image images/first-flashing.png 550 1000
 
 ## hello_world.go
 
-:    * sam rezultat tego kodu prezentuje się w taki sposób. Płytka miga
-:    * okej, nasze hello world działa
-:    * co dalej?
+:   * result of this hello world code looks like this
+:   * the board is blinking
+:   * alright, the basic stuff works, whats next?
 
 
 .image images/blinking.gif 550 700
 
 ## Outside signal
 
-:    * dokumentacja mówi, że wifi na płytce nie jest wspierane przez TinyGo
-:    * nie mniej jednak nie zaszkodzi nam poeksperymentować, wykorzystując możliwości
-:    czy to golanga samego w sobie czy też tinygo jako takiego
+:    * documentation says that the tinygo does support the wifi on this board
+:    * but we can experiment and use some go and tinygo functionalities to try to achieve the connection
 
 
 .image images/esp-interfaces.png 545 540
 
 ## Cgo
 
-:    * przykładem funkcjonalności w go, która może pomóc, a częściowo działa w tinygo 
-:    jest Cgo
-:    * Cgo to funkcjonalność, która pozwala paczkom golangowym dokonywać wywołań funkcji 
-:    napisanych C
+:   * the example of such functionality might be the Cgo
+:   * it works only partialy with tinygo but lets try it
+:   * and what is a Cgo? 
+:   * Cgo is a functionality that allows the go packages to call the C code
 
 
 .link https://go.dev/blog/cgo
@@ -246,11 +269,11 @@ _All further activities performed on Linux_
 
 ## Cgo
 
-:    * samo wykorzystanie Cgo wygląda taki sposób
-:    * komentarz, który jest nad 'import "C"' jest interpretowany jako kod C
-:    * do samych funkcji z C można się odwoływać poprzez tą importowaną pseudo paczkę
-:    * z ciekawostek to pozbycie się importu paczki "fmt" odchudziło binarkę która robi 
-:    tylko hello world z 1.8MB do 1.2MB
+:   * the usage of it looks more or less like this
+:   * the comment that is right above the 'import "C"' line is interpreted as a C code
+:   * from go, we can call C functions using the pseudo C package 
+:   * and as a off topic, what is interesting that getting rid of the "fmt" package makes the binary smaller
+:   * from 1.8 megabytes to the 1.2 megabytes. It will be important later
 
 
 .code src/c_hello_world/main.go
@@ -259,92 +282,94 @@ _All further activities performed on Linux_
 
 ## Cgo
 
-:    * w naszym wypadku, kod, który mógłby być użyteczny wygląda tak
-:    * jest to wycinek z kodu, który już wykorzystywałem na tych płytkach 
-:    * stąd wiem, że za jego pomocą powinno być możliwe podpięcie się do wifi
-:    * niestety, kod w C mnie w tym przypadku pokonał
-:    * mimo researchu i wielu eksperymentów, nie udało mi się tego skompilować poza Arduino IDE
-:    * w związku z tym, choć teoretycznie takie rozwiązanie było by możliwe, musiałem odpuścić
-:    * jeśli ktoś kto dobrze się czuje w C wie jak można tutaj coś podziałać to proszę o kontakt
-:    * okej, C nie wypaliło to może jednak jest jakaś możliwość zrobić to bezpośrednio w TinyGo
+:   * in our case the usefull code might look like this
+:   * this is a part of the code I've been already using on this board 
+:   * so I know that theoreticaly it should allow the board to connect to the wifi
+:   * unfortunatelly, shame on me but the C has beaten me up :/
+:   * despine of the research and many experiments I was not able to compile it outside of the ArduinoIDE
+:   * so, even if theoreticaly it should be possible to do it I needed to let it go
+:   * if someone knows the C and knows what maybe can be done here please let me know
+:   * alright, C won't work here but maybe there is some possibility to connect to wifi using only the golang
 
 
 .image images/wifi.gif 
 
 ## ESP-AT Driver
 
-:   * zrobiłem kolejny research, i link po linku doszedłem do jakiejś propozycji
-:   * polega ona na tym aby wykorzystać sterownik dedykowany do obsługi wifi dla ESP8266
+:   * I've done another research, and link through link I've found some possibility
+:   * it's about to use the driver dedicated for the handling the wifi for the ESP boards
 
 .image images/wifi-github-issue.png
 
 ## ESP-AT Driver
 
-:   * to rozwiązanie wykorzystuje komunikację szeregową i teoretycznie powinno pozwolić na połączenie się 
-:   do wifi
-:   * haczyk jest taki, że wymaga odpowiedniego firmware'u
-:   * no to okej, skoro wymaga to trzeba go zainstalować
+:   * this solution uses the serial communication to use wifi so theoreticalu it should work
+:   * the catch is, it needs proper firmware on the board
+:   * alright, if it needs lets install it
 
 .image images/espat.png
 
 ## ESP-AT Driver
 
-:   * po dłuuugim researchu, udało mi się znaleźć odpowiednie pliki i odpowiednie instrukcje
-:   * sam proces flashowania wygląda na to że się powiódł, nie dostałem przynajmniej żadnych błędów
-:   * uruchomiłem też na tym firmwarze przykład hello_world, wszystko śmiga
+:   * after loooong research, I've found proper files and instructions and I've done it
+:   * the process itselft looks fine, at least it does not return any errors 
+:   * I've run on it also the hello world example so I assumed that everything is okay
 
 .image images/firmware-flashing.gif 550 1000
 
 ## ESP-AT Driver
 
-:   * skoro miałem firmware, to bazując na przykładach które znalazłem stworzyłem odpowiedni kod
-:   który powinien sprawić że płytka połączy się do wifi
-:   * wygląda to mniej więcej tak (i omówić co się dzieje)
+:   * I had a proper firmware so I've found the examples how to use it
+:   * and it looks more or less like this
+:   * we again define the led related stuff
+:   * we declare the uart variable, configure it with proper pins
+:   * we create an adaptor, and we check whether the ESP is connected properly
+:   * if so, we connect to the wifi
 
 .code src/go_wifi/main.go
 
 ## ESP-AT Driver
 
-:   * no a tutaj są pozostałe funkcje (i omówić co się dzieje)
-:   * dane do sieci oczywiście w eksperymentach poprawiłem
+:   * the used functions are here
+:   * if the ESP is not connected we should se a "failed" message on the serial output
+:   * of course the values of ssid and pass were corrected during flashing the board
 
 .code src/go_wifi/main.go /START OMIT/,/END OMIT/
 
 ## ESP-AT Driver
 
-:   * no a tak wygląda zflashowanie tego kodu
-:   * standardowa komenda ale dodajemy dodatkowe dwie flagi
-:   * -serial uart , mówi który serial output ma być użyty
+:   * that is how the flashing looks like
+:   * standrad command but  with two additional flags
+:   * -serial uart , says which output should be used
 :   * -monitor enables serial monitor
-:   * jak widać niestety całość nie działa
-:   * program pada na etapie potwierdzenia że istnieje komunikacja z płytką
-:   * dlaczego tak się dzieje? niestety nie wiem. 
-:   * To może być kwestia samej płytki, kwestia sterownika, kwestia firmware'u, ja mogłem zrobić błąd na którymś z tych etapów
-:   * Trudno powiedzieć
-:   * Faktem jest, że komunikacja w ten sposób nie zadziała
+:   * and as we can see the program does not work
+:   * it fails to even connect the driver with the board
+:   * why is it happening? I dont know
+:   * might be the problem with the board, with the driver, with the firmware I used or I just might done something wrong
+:   * hard to say
+:   * the fact is that the communication this way will work
 
 .image images/go_wifi.gif _ 1000
 
 ## We have a problem...
 
-:   * trudno myśleć o jakimś ciekawym zastosowaniu płytki jeśli nie można się z nią skontaktować
-:   * bez komunikacji jedyne co można zrobić to zaprojektować jedno zachowanie i tyle
-:   * więc, skoro rozsądne (reasonable) sposoby interakcji nie zadziałały, spróbujmy czegoś dziwnego
+:   * its hard to think about some interesting board usage if we won't be able to influence the behavior
+:   * without the communication the only thing we could do is program one thing and thats all
+:   * so if reasonable ways of interacting failed, lets try something else
 
 .image images/meme.jpg
 
 ## Let's heat it
 
-:   * podczas przeglądania sterowników dla tinygo zauważyłem coś takiego: sterownik dht
+:   * during the walking through the drivers used in tinygo I've noticed the driver "dht"
 
 
 .image images/dht.png
 
 ## Let's heat it
 
-:   * jest mi on znany, ponieważ już go używałem na tej płytce. Co prawda w C ale wciąż
-:   * więc wpadłem na pomysł - nie udało mi się osiągnąć zdalnej komunikacji 
-:   * ale może będę w stanie wpłynąć na zachowanie płytki za pomocą temperatury
+:   * I know it, because I've been using it on this board before. Using C but still
+:   * so I got an idea - I don't have wifi but maybe I will be able to influence the board using the temperature
 
 .image images/c_dht(1).png 250 520
 .image images/c_dht(2).png 270 520
@@ -352,50 +377,50 @@ _All further activities performed on Linux_
 
 ## Let's heat it
 
-:   * skoro tak, to zróbmy to
-:   * trochę pokodowałem i rezultat prezentuje się następująco
+:   * if so, lets do it
+:   * I've done some codding and the results looks like this
 :   * tak wygląda kod który pobiera temeraturę (omówić linia po lini i wskazać ze olewam błędy tu)
 
 .code src/temp/main.go /START_PART1 OMIT/,/END_PART1 OMIT/
 
 ## Let's heat it
 
-:   * a tak wygląda funkcja do czytelnego printowania temperatury
+:   * and this is how the printing functions looks like
+:   * with good reasons you may ask - Marcin, why you don't use the fmt.Sprintf function?
 :   * nie bezzasadnie możecie spytać - Marcin, czemu w taki sposób tworzysz wiadomość, dlaczego nie użyłeś e.g. fmt.Sprintf
-:   * pamiętacie jak mówiłem w kontekście cgo, że pozbycie się paczki fmt zmniejszyło binarkę z 1.8MB do 1.2MB
-:   * cóż, ta paczka jest na tyle duża, że dla mojej płytki jest za duża. Stąd konieczność robienia rzeczy inaczej
-:   * takie życie, embeded rządzi się swoimi prawami
+:   * well, you remember when I was talking about Cgo and how much space was freed when I got rid of the fmt package?
+:   * well, this package is big enough to be too big for my board. Therefore I need to prepare this message this way
+:   * what can I say? The embeded world has its own rules
 
 .code src/temp/main.go /START_PART2 OMIT/,/END_PART2 OMIT/
 
 ## Let's heat it
 
-:   * co ważne, kod który zrobiłem domyślnie nie zadziała z paczką "machine" dedykowaną dla mojej płytki
-:   * jest tak dlatego, że jedna z funkcji sterownika "dht", oczekuje od paczki "machine" wartości, których ta nie dostarcza
-:   * dodatkowo, nie mogę po prostu podmienić UART1 na UART0 które występuje dla ESP8266, bo "moja" wartość nie ma takich metod
-:   * więc co w takiej sytuacji mogę zrobić?
+:   * which is important, by default the code I've prepared won't work with "machine" package I'm using
+:   * it is like this, because one of the "dht" functions needs a value from "machine" package which my board does not define
+:   * so what can I do in such situation?
 
 .image images/thermometer-err.png
 
 ## Let's heat it
 
-:   * mogę załozyć, że mogę żyć bez wyłączenia przerwań i po prostu wywalić te wywołania
-:   * czy to najlepsze rozwiązanie? nie wiem
-:   * czy działa? działa
+:   * well, I can assume that I can live without the interrupts at all and just comment this stuff
+:   * is it the best solution? I don't know
+:   * is it working? sure so lets use it
 
 .image images/thermometer-comment.png
 
 ## Let's heat it
 
-:   * z perspektywy hardware'u wygląda to natomiast tak
-:   * na tym zdjęciu widzimy sam termometr
-:   * proste urządzenie z nienajlepszą dokładnością ale jest wystarczające
+:   * from the hardware perspective it looks like this
+:   * this is the thermometer
+:   * simple device, not the best acuracy but is good enough
 
 .image images/thermometer.jpg 550 _
 
 ## Let's heat it
 
-:   * jest połączone z płytką w taki sposób
+:   * it is connected with the board like this
 :   * żółty kabel (wire) to zasilanie (power supply) 3V
 :   * niebieski to uziemienie
 :   * zielony to podpięcie do PINu który pozwala na odczyt temperatury
@@ -404,16 +429,17 @@ _All further activities performed on Linux_
 
 ## Let's heat it
 
-:   * czy to działa? 
-:   * jak możemy zobaczyć na gifie, tak, działa
-:   * początkowa temperatura zaczyna się powoli podnosić w momencie, w którym wkładam termomentr do ręki i go rozgrzewam
-:   * a to oznacza, że jest to sposób na sterowanie zachowaniem płytki
+:   * is it working? 
+:   * as we can see - it is
+:   * the initial temperature starts rising when I warm up the thiermometer
+:   * And it means that I'm able to influence the board's behavior in some way
+:   * great!
 
 .image images/solo_temp_measurement.gif _ 1000
 
 ## Action - reaction
 
-:   * skoro wiemy, że sterowanie działa, jak może wyglądać software, który to wykorzysta
+:   * so, we know that influencing the board in this way works, how can we use it?
 :   * zrobiłem coś takiego
 :   * część pierwsza opisać co się dzieje
 
@@ -433,8 +459,7 @@ _All further activities performed on Linux_
 :   * wtedy zapala się lampka
 :   * gdy temperatura spadnie ponizej 30 stopni, lampka gaśnie
 :   * super, skoro mamy sposób sterowania i odpowiednią logikę która to obsłuży możemy iść dalej
-:   * kolejnym i ostatnim krokiem w tej historii będzie doprowadzenie do stanu, gdzie płytka 
-:   na bazie temperatury będzie sterowała listwą ledową na moim biurku
+:   * next and the final step in this story will be achieving a state where the board can turn on and off the led strp on my desk    
 
 .image images/temp_trigger.gif
 
@@ -442,7 +467,7 @@ _All further activities performed on Linux_
 
 .link https://www.makeuseof.com/tag/connect-led-light-strips-arduino/
 
-:   * tym razem zaczniemy od elektroniki
+:   * this time we start with electronics
 :   * nie będę wchodził za mocno w szczegóły natomiast całość jest bazowana na takim diagramie
 
 .image images/diagram.png
@@ -457,8 +482,8 @@ _All further activities performed on Linux_
 
 ## Illuminate
 
-:   * a to jest źródło zasilania dla listwy ledowej
-:   * płytka może wygenerować max 5V
+:   * this is power supply for the led strip itself
+:   * the board generates the 5 volts
 :   * to urządzenie pozwala jako input wpiąć zasilacz 12V
 :   * na wyjściu teoretycznie powinno być max 5V ale kiedyś coś spaliłem i jest 10V 
 :   * i na szczęście (luckily) - my potrzebujemy 12V ale 10V jest wystarczająco
@@ -467,18 +492,17 @@ _All further activities performed on Linux_
 
 ## Illuminate
 
-:   * połączenia do samej płytki wyglądają natomiast następująco
-:   * red, green, blue oraz black są powiązane ze sterowaniem taśmą led
-:   * fioletowy, pomarańczowy i brązowy to połączenie termometru
+:   * wires connection to the board looks like this
+:   * red, green, blue and black are related with handling the led strip
+:   * purple, orange and brown are the thermometer connections
 
 .image images/wires-connections.jpg 580 _
 
 ## Illuminate
 
 :   * teraz kod
-:   * generalnie jest to to co widzieliśmy wcześniej, z tym że 
-:   zamiast tylko zapalić lampkę po przekroczeniu "tresholda" to jeszcze uruchamia taśmę
-:   * tutaj definiujemy nowe piny, które odpowiadają tym, które były połączone na poprzednich zdjęciach
+:   * more or less what we've seen before but now when the treshold is reached the led strp is being turn on or off
+:   * here we define pins that we've seen that were connected on previous slides
 
 
 .code src/led_strip/main.go /START_DECLARATION OMIT/,/STOP_DECLARATION OMIT/
@@ -525,17 +549,16 @@ _All further activities performed on Linux_
 :   * jak głównym celem jest jakiś projekt, wtedy płytka powinna być taka żeby go obsłużyc
 :   * jak celem jest zabawa z konkretnym językiem, wtedy płytka powinna być do niego dopasowana
 :   * przykładowo, do zabawy z tinygo płytki ESP są beznadziejne
-
+:   *-----------------
 :   * samo tinygo jest fantastyczne. Łatwe w obsłudze, szybkie i przede wszystkim pozwala tworzyć logikę w go
 :   * to ogromne uproszczenie gdy ktoś chce się bawić z mikrokontrolerami a nie zna / nie chce się uczyć C
 :   * jasne, sam projekt jest młody i ma pewne problemy wieku dziecięcego
 :   * ale prężnie się rozwija (is dynamically developing) i nie tylko dobrze się go używa ale stwarza okazję do kontrybucji w nim samym
-
+:   *-----------------
 :   * last but not least
 :   * do zabawy z elektroniką trzeba cóż poznać elektronikę - nie tylko zasady działania prądu
 :   * również istotne jest poznanie sposobów działania mikrokontrolerów, używanych protokołów, wykorzystywanych praktyk itp.
 :   * jako że całe to otoczenie mocno działa na open sourcie, to umiejętności takie jak
 :     budowanie, kompilowanie czy debuggowanie mogą być bardzo przydatne
-
 :   * and that's it. I hope you enjoyed this presentation. And if you have any questions you can ask it now
 :     or later on teams and I will try to answer it
